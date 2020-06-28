@@ -7,7 +7,7 @@
 #define RED 12
 #define YELLOW 14
 
-namespace Logger {
+namespace SI {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	void LogMessage(const char* message)

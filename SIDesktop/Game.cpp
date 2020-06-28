@@ -11,29 +11,29 @@ void SI::Game::Init(const char* title, int xpos, int ypos, int width, int height
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) 
 	{
-		Logger::LogMessage("SDL Initialized");
+		SI::LogMessage("SDL Initialized");
 		
 		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
 		if (window)
 		{
-			Logger::LogMessage("Window created");
+			SI::LogMessage("Window created");
 		}
 		else
 		{
 			isRunning = false;
-			Logger::LogError("Window NOT created");
+			SI::LogError("Window NOT created");
 		}
 		
 		renderer = SDL_CreateRenderer(window, -1, 0);
 		if (renderer)
 		{
 			SDL_SetRenderDrawColor(renderer, 25, 25, 25, 255);
-			Logger::LogMessage("Renderer created");
+			SI::LogMessage("Renderer created");
 		}
 		else
 		{
 			isRunning = false;
-			Logger::LogError("Renderer NOT created");
+			SI::LogError("Renderer NOT created");
 		}
 
 		isRunning = true;
@@ -41,7 +41,7 @@ void SI::Game::Init(const char* title, int xpos, int ypos, int width, int height
 	else
 	{
 		isRunning = false;
-		Logger::LogError("SDL was not able to initialize");
+		SI::LogError("SDL was not able to initialize");
 	}
 }
 
@@ -79,7 +79,7 @@ void SI::Game::Clean()
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
-	Logger::LogMessage("Game cleaned");
+	SI::LogMessage("Game cleaned");
 }
 
 bool SI::Game::Running() 
