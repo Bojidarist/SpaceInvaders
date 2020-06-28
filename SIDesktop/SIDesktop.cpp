@@ -1,18 +1,21 @@
-#include <SDL.h>
-#undef main
+#include "Game.h"
+
+SI::Game* game = nullptr;
 
 int main()
 {
-	SDL_Init(SDL_INIT_EVERYTHING);
+	game = new SI::Game();
 	
-	SDL_Window* window = SDL_CreateWindow("Space Invaders", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+	game->Init("Space Invaders", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
 
-	SDL_SetRenderDrawColor(renderer, 25, 25, 25, 255);
-	SDL_RenderClear(renderer);
-	SDL_RenderPresent(renderer);
+	while (game->Running())
+	{
+		game->HandleEvents();
+		game->Update();
+		game->Render();
+	}
 
-	SDL_Delay(5000);
+	game->Clean();
 
 	return 0;
 }
