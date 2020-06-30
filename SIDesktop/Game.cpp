@@ -45,6 +45,17 @@ void SI::Game::Init(const char* title, int xpos, int ypos, int width, int height
 	}
 }
 
+void SI::Game::SetFPS(int fps)
+{
+	this->fps = fps;
+}
+
+void SI::Game::StartOfFrame()
+{
+	frameStart = SDL_GetTicks();
+	frameDelay = 1000 / fps;
+}
+
 void SI::Game::HandleEvents() 
 {
 	SDL_Event event;
@@ -65,6 +76,11 @@ void SI::Game::Update()
 
 }
 
+void SI::Game::LateUpdate()
+{
+	
+}
+
 void SI::Game::Render() 
 {
 	SDL_RenderClear(renderer);
@@ -72,6 +88,15 @@ void SI::Game::Render()
 	// Render stuff
 
 	SDL_RenderPresent(renderer);
+}
+
+void SI::Game::EndOfFrame()
+{
+	frameTime = SDL_GetTicks() - frameStart;
+	if (frameDelay > frameTime)
+	{
+		SDL_Delay(frameDelay - frameTime);
+	}
 }
 
 void SI::Game::Clean() 
@@ -93,6 +118,10 @@ SI::Game::Game()
 	isRunning = false;
 	window = nullptr;
 	renderer = nullptr;
+	frameStart = 0;
+	frameTime = 0;
+	fps = 30;
+	frameDelay = 1000 / fps;
 }
 
 // Destructor
