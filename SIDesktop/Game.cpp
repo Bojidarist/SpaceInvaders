@@ -1,5 +1,9 @@
 #include "Game.h"
 #include "Logger.h"
+#include "TextureManager.h"
+
+SDL_Texture* playerTex;
+SDL_Rect playerRect;
 
 void SI::Game::Init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) 
 {
@@ -43,6 +47,9 @@ void SI::Game::Init(const char* title, int xpos, int ypos, int width, int height
 		isRunning = false;
 		SI::LogError("SDL was not able to initialize");
 	}
+
+	playerTex = SI::TextureManager::LoadTextureBMP("test.bmp", renderer);	// For now provide your own test.bmp
+	playerRect = { 10, 10, 150, 150 };
 }
 
 void SI::Game::SetFPS(int fps)
@@ -73,7 +80,7 @@ void SI::Game::HandleEvents()
 
 void SI::Game::Update() 
 {
-
+	playerRect.x += 1;
 }
 
 void SI::Game::LateUpdate()
@@ -86,6 +93,7 @@ void SI::Game::Render()
 	SDL_RenderClear(renderer);
 
 	// Render stuff
+	SDL_RenderCopy(renderer, playerTex, NULL, &playerRect);
 
 	SDL_RenderPresent(renderer);
 }

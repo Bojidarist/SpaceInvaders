@@ -10,24 +10,33 @@
 namespace SI {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	void LogMessage(const char* message)
+	void LogMessage(const char* message, bool newLine)
 	{
 		SetConsoleTextAttribute(hConsole, GREEN);
-		std::cout << message << std::endl;
+		if(!newLine)
+			std::cout << message;
+		else
+			std::cout << message << std::endl;
 		SetConsoleTextAttribute(hConsole, DEFAULTCOLOR);
 	}
 
-	void LogWarning(const char* warning)
+	void LogWarning(const char* warning, bool newLine)
 	{
 		SetConsoleTextAttribute(hConsole, YELLOW);
-		std::cout << warning << std::endl;
+		if (!newLine)
+			std::cout << warning;
+		else
+			std::cout << warning << std::endl;
 		SetConsoleTextAttribute(hConsole, DEFAULTCOLOR);
 	}
 
-	void LogError(const char* error)
+	void LogError(const char* error, bool newLine)
 	{
 		SetConsoleTextAttribute(hConsole, RED);
-		std::cout << error << std::endl;
+		if (!newLine)
+			std::cout << error;
+		else
+			std::cout << error << std::endl;
 		SetConsoleTextAttribute(hConsole, DEFAULTCOLOR);
 	}
 }
