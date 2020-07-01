@@ -23,6 +23,7 @@ namespace SI {
 			void SetFPS(int fps);
 
 			bool Running();
+			static SDL_Event Event;
 
 		private:
 			bool isRunning;
