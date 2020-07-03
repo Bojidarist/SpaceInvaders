@@ -6,6 +6,7 @@
 SI::Player* player;
 
 SDL_Event SI::Game::Event;
+SDL_Renderer* SI::Game::Renderer;
 
 void SI::Game::Init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) 
 {
@@ -30,10 +31,10 @@ void SI::Game::Init(const char* title, int xpos, int ypos, int width, int height
 			SI::LogError("Window NOT created");
 		}
 		
-		renderer = SDL_CreateRenderer(window, -1, 0);
-		if (renderer)
+		Renderer = SDL_CreateRenderer(window, -1, 0);
+		if (Renderer)
 		{
-			SDL_SetRenderDrawColor(renderer, 25, 25, 25, 255);
+			SDL_SetRenderDrawColor(Renderer, 25, 25, 25, 255);
 			SI::LogMessage("Renderer created");
 		}
 		else
@@ -50,7 +51,7 @@ void SI::Game::Init(const char* title, int xpos, int ypos, int width, int height
 		SI::LogError("SDL was not able to initialize");
 	}
 
-	player = new Player("test.bmp", renderer);
+	player = new Player("test.bmp");
 }
 
 void SI::Game::SetFPS(int fps)
@@ -64,7 +65,7 @@ void SI::Game::StartOfFrame()
 	frameDelay = 1000 / fps;
 }
 
-void SI::Game::HandleEvents() 
+void SI::Game::HandleEvents()
 {
 	SDL_PollEvent(&Event);
 
@@ -90,12 +91,12 @@ void SI::Game::LateUpdate()
 
 void SI::Game::Render() 
 {
-	SDL_RenderClear(renderer);
+	SDL_RenderClear(Renderer);
 
 	// Render stuff
 	player->Render();
 
-	SDL_RenderPresent(renderer);
+	SDL_RenderPresent(Renderer);
 }
 
 void SI::Game::EndOfFrame()
@@ -110,7 +111,7 @@ void SI::Game::EndOfFrame()
 void SI::Game::Clean() 
 {
 	SDL_DestroyWindow(window);
-	SDL_DestroyRenderer(renderer);
+	SDL_DestroyRenderer(Renderer);
 	SDL_Quit();
 	SI::LogMessage("Game cleaned");
 }
@@ -125,7 +126,7 @@ SI::Game::Game()
 {
 	isRunning = false;
 	window = nullptr;
-	renderer = nullptr;
+	Renderer = nullptr;
 	frameStart = 0;
 	frameTime = 0;
 	fps = 30;

@@ -1,7 +1,8 @@
 #include "TextureManager.h"
 #include "Logger.h"
+#include "Game.h"
 
-SDL_Texture* SI::TextureManager::LoadTextureBMP(const char* fileName, SDL_Renderer* rend)
+SDL_Texture* SI::TextureManager::LoadTextureBMP(const char* fileName)
 {
 	SDL_Surface* surface = SDL_LoadBMP(fileName);
 	if (!surface)
@@ -11,7 +12,7 @@ SDL_Texture* SI::TextureManager::LoadTextureBMP(const char* fileName, SDL_Render
 
 		return nullptr;
 	}
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(rend, surface);
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(SI::Game::Renderer, surface);
 	SDL_FreeSurface(surface);
 
 	return texture;

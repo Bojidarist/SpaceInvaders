@@ -21,9 +21,10 @@ namespace SI {
 			void EndOfFrame();
 			void Clean();
 			void SetFPS(int fps);
-
 			bool Running();
+
 			static SDL_Event Event;
+			static SDL_Renderer* Renderer;
 
 		private:
 			bool isRunning;
@@ -32,7 +33,5 @@ namespace SI {
 			int frameTime;
 			int frameDelay;
 			SDL_Window* window;
-			SDL_Renderer* renderer;
-
 	};
 }

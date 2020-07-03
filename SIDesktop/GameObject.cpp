@@ -1,16 +1,18 @@
 #include "GameObject.h"
 #include "TextureManager.h"
+#include "Game.h"
 
 SI::GameObject::GameObject()
 {
+	SI::GameObject::destRect = { 0,0,0,0 };
+	SI::GameObject::objTexture = nullptr;
 }
 
-SI::GameObject::GameObject(const char* texturePath, SDL_Renderer* rend)
+SI::GameObject::GameObject(const char* texturePath)
 {
 	destRect = { 0,0,0,0 };
 
-	renderer = rend;
-	objTexture = SI::TextureManager::LoadTextureBMP(texturePath, renderer);
+	objTexture = SI::TextureManager::LoadTextureBMP(texturePath);
 }
 
 SI::GameObject::~GameObject()
@@ -24,7 +26,7 @@ void SI::GameObject::Update()
 
 void SI::GameObject::Render()
 {
-	SDL_RenderCopy(renderer, objTexture, NULL, &destRect);
+	SDL_RenderCopy(SI::Game::Renderer, objTexture, NULL, &destRect);
 }
 
 
@@ -40,10 +42,9 @@ void SI::GameObject::SetSize(int w, int h)
 	destRect.h = h;
 }
 
-void SI::GameObject::SetTexture(const char* texturePath, SDL_Renderer* rend)
+void SI::GameObject::SetTexture(const char* texturePath)
 {
-	renderer = rend;
-	objTexture = SI::TextureManager::LoadTextureBMP(texturePath, rend);
+	objTexture = SI::TextureManager::LoadTextureBMP(texturePath);
 }
 
 SDL_Rect SI::GameObject::GetDestinationRect()

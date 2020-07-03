@@ -3,10 +3,11 @@
 #include "SIMath.h"
 #include "Game.h"
 
-SI::Player::Player(const char* texturePath, SDL_Renderer* rend)
+SI::Player::Player(const char* texturePath, int x, int y, int w, int h)
 {
-	this->SetTexture(texturePath, rend);
-	this->SetSize(150, 150);
+	this->SetTexture(texturePath);
+	this->SetPos(x, y);
+	this->SetSize(w, h);
 }
 
 SI::Player::~Player()

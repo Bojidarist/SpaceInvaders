@@ -6,7 +6,7 @@ namespace SI
 	class Player : public GameObject
 	{
 		public:
-			Player(const char* texturePath, SDL_Renderer* rend);
+			Player(const char* texturePath, int x = 0, int y = 0, int w = 100, int h = 100);
 			~Player();
 
 			void Update() override;
