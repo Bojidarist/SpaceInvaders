@@ -350,4 +350,5 @@ MigrationBackup/
 .ionide/
 
 # Libraries
-SDL2.dll
+SIDesktop/SDL2.dll
+!SIDesktop/libs/SDL2/lib/*
