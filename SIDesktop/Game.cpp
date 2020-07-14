@@ -51,7 +51,7 @@ void SI::Game::Init(const char* title, int xpos, int ypos, int width, int height
 		SI::LogError("SDL was not able to initialize");
 	}
 
-	player = new Player("test.bmp");
+	player = new Player("resources/sprites/sprite_04.bmp", 400, 550, 32, 16);
 }
 
 void SI::Game::SetFPS(int fps)

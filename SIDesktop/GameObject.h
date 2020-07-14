@@ -15,7 +15,7 @@ namespace SI
 			void SetPos(int x, int y);
 			void SetSize(int w, int h);
 			void SetTexture(const char* texturePath);
-			SDL_Rect GetDestinationRect();
+			SDL_Rect& GetDestinationRect();
 
 		private:
 			SDL_Texture* objTexture;

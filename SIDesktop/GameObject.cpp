@@ -47,7 +47,7 @@ void SI::GameObject::SetTexture(const char* texturePath)
 	objTexture = SI::TextureManager::LoadTextureBMP(texturePath);
 }
 
-SDL_Rect SI::GameObject::GetDestinationRect()
+SDL_Rect& SI::GameObject::GetDestinationRect()
 {
 	return destRect;
 }
