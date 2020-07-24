@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "SIMath.h"
 #include <vector>
 
 namespace SI
@@ -38,26 +39,26 @@ namespace SI
 					GameObject* lastEnemy = enemyWave[i][enemyWave[i].size() - 1];
 					GameObject* firstEnemy = enemyWave[i][0];
 
-					if (firstEnemy->GetDestinationRect().x < 20)
+					if (firstEnemy->GetDestinationRect().x <= 20)
 					{
 						speed = std::abs(speed);
 						for (size_t i = 0; i < enemyWave.size(); i++)
 						{
 							for (size_t j = 0; j < enemyWave[i].size(); j++)
 							{
-								enemyWave[i][j]->SetPos(enemyWave[i][j]->GetDestinationRect().x + speed, enemyWave[i][j]->GetDestinationRect().y + 20);
+								enemyWave[i][j]->SetPos(SI::SIMath::Clamp(enemyWave[i][j]->GetDestinationRect().x + speed, 20, 780), enemyWave[i][j]->GetDestinationRect().y + ySkip);
 							}
 						}
 						break;
 					}
-					else if (lastEnemy->GetDestinationRect().x + this->enemyWidth > 780)
+					else if (lastEnemy->GetDestinationRect().x + this->enemyWidth >= 780)
 					{
 						speed = -speed;
 						for (size_t i = 0; i < enemyWave.size(); i++)
 						{
 							for (size_t j = 0; j < enemyWave[i].size(); j++)
 							{
-								enemyWave[i][j]->SetPos(enemyWave[i][j]->GetDestinationRect().x + speed, enemyWave[i][j]->GetDestinationRect().y + 20);
+								enemyWave[i][j]->SetPos(SI::SIMath::Clamp(enemyWave[i][j]->GetDestinationRect().x + speed, 20, 780 - enemyWidth), enemyWave[i][j]->GetDestinationRect().y + ySkip);
 							}
 						}
 						break;
@@ -66,7 +67,7 @@ namespace SI
 					{
 						for (size_t j = 0; j < enemyWave[i].size(); j++)
 						{
-							enemyWave[i][j]->SetPos(enemyWave[i][j]->GetDestinationRect().x + speed, enemyWave[i][j]->GetDestinationRect().y);
+							enemyWave[i][j]->SetPos(SI::SIMath::Clamp(enemyWave[i][j]->GetDestinationRect().x + speed * speedMultiplier, 20, 780), enemyWave[i][j]->GetDestinationRect().y);
 						}
 					}
 				}
@@ -92,6 +93,29 @@ namespace SI
 		void RemoveEnemyAt(int rowIndex, int colIndex)
 		{
 			enemyWave[rowIndex].erase(enemyWave[rowIndex].begin() + colIndex);
+
+			killedEnemies += 1;
+
+			if (killedEnemies >= 15)
+			{
+				speedMultiplier = 5;
+				ySkip = 14;
+			}
+			else if (killedEnemies >= 12)
+			{
+				speedMultiplier = 4;
+				ySkip = 13;
+			}
+			else if (killedEnemies >= 8)
+			{
+				speedMultiplier = 3;
+				ySkip = 12;
+			}
+			else if (killedEnemies >= 4)
+			{
+				speedMultiplier = 2;
+				ySkip = 11;
+			}
 		}
 
 	private:
@@ -106,6 +130,9 @@ namespace SI
 		int speed = 1;
 		int enemyWidth = 60;
 		int enemyHeight = 40;
+		int speedMultiplier = 1;
+		int killedEnemies = 0;
+		int ySkip = 10;
 		std::vector<std::vector<GameObject*>> enemyWave;
 	};
 }
