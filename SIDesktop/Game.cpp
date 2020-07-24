@@ -5,6 +5,7 @@
 #include "EnemyWave.h"
 
 SI::Player* player;
+SI::GameObject* bgImage;
 
 SI::EnemyWave* SI::Game::Wave;
 SDL_Event SI::Game::Event;
@@ -54,6 +55,8 @@ void SI::Game::Init(const char* title, int xpos, int ypos, int width, int height
 	}
 
 	player = new Player("resources/sprites/sprite_04.bmp", 400, 550, 32, 16);
+	bgImage = new GameObject("resources/backgrounds/bg.bmp");
+	bgImage->SetSize(800, 600);
 	Wave = new EnemyWave();
 }
 
@@ -98,6 +101,7 @@ void SI::Game::Render()
 	SDL_RenderClear(Renderer);
 
 	// Render stuff
+	bgImage->Render();
 	player->Render();
 	Wave->Render();
 
