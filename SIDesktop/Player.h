@@ -10,5 +10,10 @@ namespace SI
 			~Player();
 
 			void Update() override;
+
+		private:
+			int width = 0;
+			int height = 0;
+			GameObject* fireObj;
 	};
 }
