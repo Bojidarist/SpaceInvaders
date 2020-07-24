@@ -10,6 +10,7 @@ namespace SI
 			~Player();
 
 			void Update() override;
+			void Render() override;
 
 		private:
 			int width = 0;
