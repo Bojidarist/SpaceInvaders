@@ -2,9 +2,11 @@
 #include "Logger.h"
 #include "GameObject.h"
 #include "Player.h"
+#include "EnemyWave.h"
 
 SI::Player* player;
 
+SI::EnemyWave* SI::Game::Wave;
 SDL_Event SI::Game::Event;
 SDL_Renderer* SI::Game::Renderer;
 
@@ -52,6 +54,7 @@ void SI::Game::Init(const char* title, int xpos, int ypos, int width, int height
 	}
 
 	player = new Player("resources/sprites/sprite_04.bmp", 400, 550, 32, 16);
+	Wave = new EnemyWave();
 }
 
 void SI::Game::SetFPS(int fps)
@@ -82,6 +85,7 @@ void SI::Game::HandleEvents()
 void SI::Game::Update() 
 {
 	player->Update();
+	Wave->Update();
 }
 
 void SI::Game::LateUpdate()
@@ -95,6 +99,7 @@ void SI::Game::Render()
 
 	// Render stuff
 	player->Render();
+	Wave->Render();
 
 	SDL_RenderPresent(Renderer);
 }

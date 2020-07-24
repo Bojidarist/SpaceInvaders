@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL.h>
+#include "EnemyWave.h"
 #undef main
 
 namespace SI {
@@ -25,6 +26,7 @@ namespace SI {
 
 			static SDL_Event Event;
 			static SDL_Renderer* Renderer;
+			static SI::EnemyWave* Wave;
 
 		private:
 			bool isRunning;

@@ -29,12 +29,6 @@ void SI::Player::Update()
 				case SDLK_RIGHT:
 					dest.x += 5;
 					break;
-				case SDLK_DOWN:
-					dest.y += 5;
-					break;
-				case SDLK_UP:
-					dest.y -= 5;
-					break;
 				default:
 					break;
 			}

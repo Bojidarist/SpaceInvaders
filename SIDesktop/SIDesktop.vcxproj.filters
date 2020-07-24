@@ -56,5 +56,8 @@
     <ClInclude Include="SIMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyWave.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
