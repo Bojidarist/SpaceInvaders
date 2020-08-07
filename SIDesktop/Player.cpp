@@ -2,6 +2,7 @@
 #include "TextureManager.h"
 #include "SIMath.h"
 #include "Game.h"
+#include "Logger.h"
 
 SI::Player::Player(const char* texturePath, int x, int y, int w, int h)
 {
@@ -29,14 +30,27 @@ void SI::Player::Update()
 		case SDL_KEYDOWN:
 			switch (SI::Game::Event.key.keysym.sym)
 			{
+				case SDLK_p:
+					SI::Game::IsPaused = !SI::Game::IsPaused;
+					if (SI::Game::IsPaused)
+					{
+						SI::LogMessage("Game paused!");
+					}
+					else
+					{
+						SI::LogMessage("Game resumed!");
+					}
+					break;
 				case SDLK_LEFT:
-					dest.x = SI::SIMath::Clamp(dest.x - 5, 0, 800);
+					if (!SI::Game::IsPaused)
+						dest.x = SI::SIMath::Clamp(dest.x - 5, 0, 800);
 					break;
 				case SDLK_RIGHT:
-					dest.x = SI::SIMath::Clamp(dest.x + 5, 0, 800 - width);
+					if (!SI::Game::IsPaused)
+						dest.x = SI::SIMath::Clamp(dest.x + 5, 0, 800 - width);
 					break;
 				case SDLK_SPACE:
-					if (fireObj->GetDestinationRect().y < 0)
+					if (fireObj->GetDestinationRect().y < 0 && !SI::Game::IsPaused)
 					{
 						fireObj->SetPos(dest.x + (width / 4), dest.y);
 					}
@@ -47,9 +61,10 @@ void SI::Player::Update()
 			break;
 		default:
 			break;
+
 	}
 
-	if (fireObj->GetDestinationRect().y >= -15)
+	if (fireObj->GetDestinationRect().y >= -15 && !SI::Game::IsPaused)
 	{
 		fireObj->GetDestinationRect().y -= 3;
 		auto enemies = SI::Game::Wave->GetEnemies();

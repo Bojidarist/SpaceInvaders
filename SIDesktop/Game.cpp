@@ -10,19 +10,20 @@ SI::GameObject* bgImage;
 SI::EnemyWave* SI::Game::Wave;
 SDL_Event SI::Game::Event;
 SDL_Renderer* SI::Game::Renderer;
+bool SI::Game::IsPaused;
 
-void SI::Game::Init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) 
+void SI::Game::Init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
 	int flags = 0;
-	if (fullscreen) 
+	if (fullscreen)
 	{
 		flags = SDL_WINDOW_FULLSCREEN;
 	}
 
-	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) 
+	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{
 		SI::LogMessage("SDL Initialized");
-		
+
 		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
 		if (window)
 		{
@@ -33,7 +34,7 @@ void SI::Game::Init(const char* title, int xpos, int ypos, int width, int height
 			isRunning = false;
 			SI::LogError("Window NOT created");
 		}
-		
+
 		Renderer = SDL_CreateRenderer(window, -1, 0);
 		if (Renderer)
 		{
@@ -85,7 +86,7 @@ void SI::Game::HandleEvents()
 	}
 }
 
-void SI::Game::Update() 
+void SI::Game::Update()
 {
 	player->Update();
 	Wave->Update();
@@ -93,10 +94,10 @@ void SI::Game::Update()
 
 void SI::Game::LateUpdate()
 {
-	
+
 }
 
-void SI::Game::Render() 
+void SI::Game::Render()
 {
 	SDL_RenderClear(Renderer);
 
@@ -117,7 +118,7 @@ void SI::Game::EndOfFrame()
 	}
 }
 
-void SI::Game::Clean() 
+void SI::Game::Clean()
 {
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(Renderer);
@@ -125,7 +126,7 @@ void SI::Game::Clean()
 	SI::LogMessage("Game cleaned");
 }
 
-bool SI::Game::Running() 
+bool SI::Game::Running()
 {
 	return isRunning;
 }

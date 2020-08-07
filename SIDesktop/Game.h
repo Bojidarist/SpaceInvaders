@@ -24,9 +24,10 @@ namespace SI {
 			void SetFPS(int fps);
 			bool Running();
 
+			static bool IsPaused;
 			static SDL_Event Event;
 			static SDL_Renderer* Renderer;
-			static SI::EnemyWave* Wave;
+			static EnemyWave* Wave;
 
 		private:
 			bool isRunning;
